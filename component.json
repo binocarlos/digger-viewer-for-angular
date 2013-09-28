@@ -1,0 +1,19 @@
+{
+  "name": "digger-viewer-for-angular",
+  "repo": "binocarlos/digger-viewer-for-angular",
+  "description": "A content viewer for container children or selector results",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "binocarlos/angular-component": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "styles": [
+    
+  ],
+  "scripts": [
+    "index.js"
+  ]
+}

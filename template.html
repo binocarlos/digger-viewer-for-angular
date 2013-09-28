@@ -1,0 +1,35 @@
+<div>
+  <ul class="nav nav-tabs" id="viewerTab">
+    <li ng-class="{active:tabmode=='form'}"><a style="cursor:pointer;" ng-click="setmode('form')">Form</a></li>
+    <li ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div ng-class="{active:tabmode=='form', in:tabmode=='form', fade:tabmode!='form'}" class="tab-pane" id="details" style="margin-top:20px;">
+
+       <form class="form form-horizontal" name="containerForm" onSubmit="return false;">
+
+          <fieldset>
+
+
+            
+              <form novalidate>
+                <digger-form fields="blueprint.fields" container="quote" />
+              </form>
+     
+            
+          </fieldset>
+
+        </form>
+      
+
+    </div>
+    <div ng-class="{active:tabmode=='children', in:tabmode=='form', fade:tabmode!='form'}" class="tab-pane" id="children" style="margin-top:20px;">
+
+    	<div ng-repeat="$digger in children">
+
+    		{{ $digger.title() }}
+
+      </div>
+
+    </div>
+  </div>
