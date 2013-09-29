@@ -25,7 +25,7 @@ angular
       template:template,
       controller:function($scope){
 
-      	$scope.tabmode = 'children';
+      	$scope.tabmode = 'details';
 
         $scope.geticon = function(container){
           return $scope.iconfn ? $scope.iconfn(container) : 'icon-file';
@@ -44,16 +44,9 @@ angular
           $scope.children = container.children().containers();
 
           $scope.deletemode = false;
-          if($scope.children.length>0){
-            $scope.showchildren = true;
-          }
-          else{
-            $scope.showchildren = false; 
-          }
-
-          if(!$scope.showchildren){
-            $scope.tabmode='details';
-          }
+          $scope.showchildren = true;
+          
+          $scope.tabmode='details';
         })
 
         $scope.deletemode = false;
