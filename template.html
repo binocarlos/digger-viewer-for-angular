@@ -1,33 +1,48 @@
 <div>
   <ul class="nav nav-tabs" id="viewerTab">
-    <li ng-class="{active:tabmode=='form'}"><a style="cursor:pointer;" ng-click="setmode('form')">Form</a></li>
-    <li ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
+    <li ng-show="showchildren" ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
+    <li ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">{{ container.title() }}</a></li>
+    
   </ul>
   <div id="myTabContent" class="tab-content">
-    <div ng-class="{active:tabmode=='form', in:tabmode=='form', fade:tabmode!='form'}" class="tab-pane" id="details" style="margin-top:20px;">
-
-       <form class="form form-horizontal" name="containerForm" onSubmit="return false;">
+    <div ng-class="{active:tabmode=='details', in:tabmode=='details', fade:tabmode!='details'}" class="tab-pane" id="details" style="margin-top:20px;">
+       <form class="form form-horizontal" name="containerForm" onSubmit="return false;" ng-hide="deletemode">
 
           <fieldset>
-
-
             
               <form novalidate>
-                <digger-form fields="blueprint.fields" container="quote" />
+                <digger-form fields="blueprint.fields" container="container" />
               </form>
-     
+
+              <div class="form-group" style="margin-top:10px;">
+                <div class="col-lg-offset-2 col-lg-10">
+                  <button class="btn btn-info" ng-click="deletecontainer()">Delete</button>
+                  <button class="btn btn-success" ng-click="savecontainer()">Save</button>
+                </div>
+              </div>
             
           </fieldset>
 
         </form>
+
+        <div class="row" ng-show="deletemode">
+          Are you sure?<br /><br />
+
+          <button class="btn btn-danger" ng-click="deletecontainer(true)">Yes! Delete</button>
+        </div>
       
 
     </div>
-    <div ng-class="{active:tabmode=='children', in:tabmode=='form', fade:tabmode!='form'}" class="tab-pane" id="children" style="margin-top:20px;">
+    <div ng-show="showchildren" ng-class="{active:tabmode=='children', in:tabmode=='children', fade:tabmode!='children'}" class="tab-pane" id="children" style="margin-top:20px;">
 
-    	<div ng-repeat="$digger in children">
+    	<div class="digger-viewer-container" ng-repeat="$digger in children">
 
-    		{{ $digger.title() }}
+        <div style="margin-bottom:5px;">
+          <i class="icon" ng-class="geticon($digger)"></i>
+        </div>
+        <div>
+    		  {{ $digger.title() }}
+        </div>
 
       </div>
 
