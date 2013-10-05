@@ -19,13 +19,35 @@ angular
       scope:{
         container:'=',
         blueprint:'=',
-        iconfn:'='
+        iconfn:'=',
+        extra_fields:'=',
+        settings:'='
       },
       replace:true,
       template:template,
       controller:function($scope){
 
-      	$scope.tabmode = 'details';
+      	$scope.tabmode = 'children';
+        $scope.diggeractive = false;
+
+        $scope.hidedelete = function(){
+          if(!$scope.settings){
+            return false;
+          }
+
+          var mode = $scope.settings.nodelete;
+
+          if(typeof(mode)==='function'){
+            return mode();
+          }
+          else{
+            return mode;
+          }
+        }
+
+        $scope.toggledigger = function(){
+          $scope.diggeractive = !$scope.diggeractive;
+        }
 
         $scope.geticon = function(container){
           return $scope.iconfn ? $scope.iconfn(container) : 'icon-file';
@@ -35,6 +57,10 @@ angular
           $scope.tabmode = mode;
           $scope.deletemode = false;
         }
+
+        $scope.$on('viewer:mode', function(ev, mode){
+          $scope.setmode(mode);
+        })
         
         $scope.$watch('container', function(container){
           if(!container){
@@ -44,18 +70,66 @@ angular
           $scope.children = container.children().containers();
 
           $scope.deletemode = false;
-          $scope.showchildren = true;
-          
-          $scope.tabmode='details';
+
+          var addchildren = $digger.blueprint.get_children($scope.blueprint);
+          $scope.addchildren = addchildren ? addchildren.containers() : [];
+          $scope.showchildren = $digger.blueprint.has_children($scope.blueprint);
+          if(container.data('new')){
+            $scope.showchildren = false;
+          }
+          $scope.showdetails = $digger.blueprint ? true : false;
+          $scope.edit_container = container;
+
+          if(!$scope.showchildren){
+            $scope.tabmode = 'details';
+          }
+
+          $scope.digger_fields = [{
+            name:'_digger.tag',
+            title:'<tag>'
+          },{
+            name:'_digger.class',
+            type:'diggerclass',
+            title:'.class'
+          },{
+            name:'_digger.id',
+            title:'#id'
+          },{
+            name:'_digger.diggerid',
+            title:'=diggerid'
+          },{
+            name:'_digger.diggerwarehouse',
+            title:'/warehouse'
+          }]
         })
 
+        $scope.add_from_blueprint = function(blueprint){
+          $scope.$emit('viewer:add', blueprint);
+          $scope.addmode = true;
+        }
+
         $scope.deletemode = false;
+
+        $scope.click_container = function(container){
+          $scope.$emit('viewer:selected', container);
+        }
+
+        $scope.cancelcontainer = function(){
+          $scope.$emit('viewer:canceladd');
+          $scope.addmode = false;
+        }
+
+        $scope.canceldelete = function(){
+          $scope.deletemode = false;
+        }
+
         $scope.deletecontainer = function(confirm){
           if(!confirm){
             $scope.deletemode = true;
           }
           else{
             $scope.$emit('viewer:remove');
+            $scope.deletemode = false;
           }
         }
 

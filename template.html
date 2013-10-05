@@ -1,50 +1,80 @@
 <div>
-  <ul class="nav nav-tabs" id="viewerTab">
-    <li ng-show="showchildren" ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
-    <li ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">{{ container.title() }}</a></li>
-    
-  </ul>
-  <div id="myTabContent" class="tab-content">
-    <div ng-class="{active:tabmode=='details', in:tabmode=='details', fade:tabmode!='details'}" class="tab-pane" id="details" style="margin-top:20px;">
-       <form class="form form-horizontal" name="containerForm" onSubmit="return false;" ng-hide="deletemode">
+  <div class="row" ng-show="deletemode">
+    Are you sure?<br /><br />
 
-          <fieldset>
-            
-              <form novalidate>
-                <digger-form fields="blueprint.fields" container="container" />
-              </form>
+    <button class="btn btn-info" ng-click="canceldelete()">No Cancel</button>
+    <button class="btn btn-danger" ng-click="deletecontainer(true)">Yes! Delete</button>
+  </div>
 
-              <div class="form-group" style="margin-top:10px;">
-                <div class="col-lg-offset-2 col-lg-10">
-                  <button class="btn btn-info" ng-click="deletecontainer()">Delete</button>
-                  <button class="btn btn-success" ng-click="savecontainer()">Save</button>
-                </div>
-              </div>
-            
-          </fieldset>
-
-        </form>
-
-        <div class="row" ng-show="deletemode">
-          Are you sure?<br /><br />
-
-          <button class="btn btn-danger" ng-click="deletecontainer(true)">Yes! Delete</button>
-        </div>
+  <div ng-hide="deletemode">
+    <ul class="nav nav-tabs" id="viewerTab">
+      <li ng-show="showchildren" ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
+      <li ng-show="showdetails" ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">Details</a></li>
       
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div ng-show="showdetails" ng-class="{active:tabmode=='details', in:tabmode=='details', fade:tabmode!='details'}" class="tab-pane" id="details" style="margin-top:20px;">
+         <form class="form form-horizontal" name="containerForm" onSubmit="return false;" ng-hide="deletemode">
 
-    </div>
-    <div ng-show="showchildren" ng-class="{active:tabmode=='children', in:tabmode=='children', fade:tabmode!='children'}" class="tab-pane" id="children" style="margin-top:20px;">
+            <fieldset>
+              
+                <form novalidate>
+                  <digger-form fields="blueprint.fields" container="edit_container" />
+                </form>
 
-    	<div class="digger-viewer-container" ng-repeat="$digger in children">
+                <div class="pull-right">
+                  <a href="" ng-click="toggledigger()">
+                  <span ng-show="diggeractive">-</span>
+                  <span ng-hide="diggeractive">+</span>
+                   digger
+                  </a>
+                </div>
 
-        <div style="margin-bottom:5px;">
-          <i class="icon" ng-class="geticon($digger)"></i>
-        </div>
+                <div ng-show="diggeractive">
+                  <hr />
+                  <form novalidate>
+                    <digger-form fields="digger_fields" container="edit_container" />
+                  </form>
+
+                  
+                </div>
+
+                <div class="form-group text-center" style="margin-top:10px;">
+                    <button ng-show="addmode" class="btn btn-warning" ng-click="cancelcontainer()">Cancel</button>
+                    <button ng-hide="hidedelete()" class="btn btn-info" ng-click="deletecontainer()">Delete</button>
+                    <button class="btn btn-success" ng-click="savecontainer()">Save</button>
+                    
+                </div>
+              
+            </fieldset>
+
+          </form>
+
+
+        
+
+      </div>
+      <div ng-show="showchildren" ng-class="{active:tabmode=='children', in:tabmode=='children', fade:tabmode!='children'}" class="tab-pane" id="children" style="margin-top:20px;">
+
         <div>
-    		  {{ $digger.title() }}
+
+        	<div class="digger-viewer-container" ng-repeat="$digger in children" ng-click="click_container($digger)">
+
+            <div style="margin-bottom:5px;">
+              <i class="icon" ng-class="geticon($digger)"></i>
+            </div>
+            <div>
+        		  {{ $digger.title() }}
+            </div>
+
+          </div>
+
+        </div>
+        <hr style="clear: left;" />
+        <div>
+          <button style="margin:10px;" class="btn btn-sm btn-info" ng-click="add_from_blueprint(blueprint)" ng-repeat="blueprint in addchildren">new {{ blueprint.title() }}</button>
         </div>
 
       </div>
-
     </div>
   </div>
