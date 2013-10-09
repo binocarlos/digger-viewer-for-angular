@@ -28,7 +28,7 @@ angular
       controller:function($scope){
 
       	$scope.tabmode = 'children';
-        $scope.diggeractive = false;
+        $scope.diggeractive = true;
 
         $scope.hidedelete = function(){
           if(!$scope.settings){
