@@ -94,12 +94,6 @@ angular
           },{
             name:'_digger.id',
             title:'#id'
-          },{
-            name:'_digger.diggerid',
-            title:'=diggerid'
-          },{
-            name:'_digger.diggerwarehouse',
-            title:'/warehouse'
           }]
         })
 

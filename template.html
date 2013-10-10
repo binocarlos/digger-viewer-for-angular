@@ -33,7 +33,14 @@
                 <div ng-show="diggeractive">
                   <hr />
                   <form novalidate>
-                    <digger-form fields="digger_fields" container="edit_container" />
+                    <digger-form fields="digger_fields" container="edit_container">
+                      <div class="form-group" ng-show="settings.container_url">
+                        <label for="warehouselink" class="col-sm-3 control-label ng-binding">URL:</label>
+                        <div class="col-sm-7" style="overflow:none;">
+                          <input type="text" readonly class="form-control" ng-model="settings.container_url" />
+                        </div>
+                      </div>
+                    </digger-form>
                   </form>
 
                   
