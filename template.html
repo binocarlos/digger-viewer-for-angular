@@ -132,7 +132,16 @@
         tabs
        -->
       <div ng-repeat="tab in blueprint.tabs" ng-show="tabmode==tab.name" ng-class="{active:tabmode==tab.name, in:tabmode==tab.name, fade:tabmode!=tab.name}" class="tab-pane" id="{{ tab.name }}" style="margin-top:20px;">
-        YO!THIS IS TAB
+
+        <div ng-if="!tab.type">
+          <form novalidate>
+            <digger-form fields="tab.fields" container="edit_container" />
+          </form>
+        </div>
+        <div ng-if="tab.type">
+          FIELD
+        </div>
+        
 
       </div>
 
