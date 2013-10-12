@@ -48,7 +48,7 @@
        -->
       <div ng-show="settings.showjson" ng-class="{active:tabmode=='json', in:tabmode=='json', fade:tabmode!='json'}" class="tab-pane" id="children" style="margin-top:20px;">
 
-        <div class="row" ng-show="settings.container_url">
+        <div class="row" ng-show="(issaved && settings.container_url)">
           <form class="form form-horizontal">
           <div class="form-group">
             <label for="warehouselink" class="col-sm-3 control-label ng-binding">REST URL:</label>
@@ -63,7 +63,7 @@
           </form>
         </div>
 
-        <div class="row" ng-show="settings.container_branch">
+        <div class="row" ng-show="(issaved && settings.container_branch)">
           <form class="form form-horizontal">
           <div class="form-group">
             <label for="warehouselink" class="col-sm-3 control-label ng-binding">Branch URL:</label>

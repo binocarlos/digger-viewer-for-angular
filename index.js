@@ -29,14 +29,8 @@ angular
             return null;
           }
 
-          var clone = JSON.parse(JSON.stringify(container.get(0)));
-          delete(clone._children);
-          delete(clone._data);
-          $scope.model = clone;
+          $scope.model = container.get(0);
         })
-
-        
-        
 
       },
 
@@ -46,8 +40,12 @@ angular
           if(!model){
             return;
           }
+
+          var clone = JSON.parse(JSON.stringify(model));
+          delete(clone._children);
+          delete(clone._data);
           
-          var jsonhtml = jsonMarkup(model);
+          var jsonhtml = jsonMarkup(clone);
           elem.html(jsonhtml);
 
         }, true)
@@ -145,8 +143,10 @@ angular
           var addchildren = $digger.blueprint.get_add_children($scope.blueprint);
           $scope.addchildren = addchildren ? addchildren.containers() : [];
           $scope.showchildren = $digger.blueprint.has_children($scope.blueprint);
+          $scope.issaved = true;
           if(container.data('new')){
             $scope.showchildren = false;
+            $scope.issaved = false;
           }
           if($scope.settings.showchildren===false){
             $scope.showchildren = false;
@@ -213,6 +213,7 @@ angular
 
         $scope.savecontainer = function(){
           $scope.$emit('viewer:save');
+          $scope.addmode = false;
         }
       }
     }
