@@ -31,6 +31,7 @@ angular
 
           var clone = JSON.parse(JSON.stringify(container.get(0)));
           delete(clone._children);
+          delete(clone._data);
           $scope.model = clone;
         })
 
@@ -70,6 +71,25 @@ angular
       },
       replace:true,
       template:template,
+      link:function($scope, elem){
+        
+
+        $scope.selectbranchurl = function(){
+          var branchtext = elem.find('#branchurl');  
+          var branchelem = branchtext.get(0);
+
+          branchelem.focus();
+          branchelem.select();
+        }
+
+        $scope.selectcontainerurl = function(){
+          var branchtext = elem.find('#containerurl');  
+          var branchelem = branchtext.get(0);
+
+          branchelem.focus();
+          branchelem.select();
+        }
+      },
       controller:function($scope){
 
       	$scope.tabmode = 'children';
@@ -137,6 +157,9 @@ angular
           if(!$scope.showchildren){
             $scope.tabmode = 'details';
           }
+
+          $scope.container_url = $digger.config.diggerurl + container.diggerurl();
+          $scope.container_branch = container.diggerurl();
 
           $scope.digger_fields = [{
             name:'_digger.tag',

@@ -48,6 +48,37 @@
        -->
       <div ng-show="settings.showjson" ng-class="{active:tabmode=='json', in:tabmode=='json', fade:tabmode!='json'}" class="tab-pane" id="children" style="margin-top:20px;">
 
+        <div class="row" ng-show="settings.container_url">
+          <form class="form form-horizontal">
+          <div class="form-group">
+            <label for="warehouselink" class="col-sm-3 control-label ng-binding">REST URL:</label>
+            <div class="col-sm-6" style="overflow:none;">
+              <input type="text" readonly class="form-control" id="containerurl" ng-model="container_url" />
+            </div>
+            <div class="col-sm-3">
+              <!--<a ng-href="{{ container_url }}" target="_blank" class="btn btn-info">open</a>-->
+              <button ng-click="selectcontainerurl()" href="" class="btn btn-info">select</a>
+            </div>
+          </div>
+          </form>
+        </div>
+
+        <div class="row" ng-show="settings.container_branch">
+          <form class="form form-horizontal">
+          <div class="form-group">
+            <label for="warehouselink" class="col-sm-3 control-label ng-binding">Branch URL:</label>
+            <div class="col-sm-6" style="overflow:none;">
+              <input id="branchurl" type="text" readonly class="form-control" ng-model="container_branch" />
+            </div>
+            <div class="col-sm-3">
+              <button ng-click="selectbranchurl()" href="" class="btn btn-info">select</a>
+            </div>
+          </div>
+          </form>
+        </div>
+
+        <hr ng-show="(settings.container_url || settings.container_branch)" />
+
         <digger-json container="container" />
 
       </div>
@@ -77,12 +108,7 @@
                     <hr />
                     <form novalidate>
                       <digger-form fields="digger_fields" container="edit_container">
-                        <div class="form-group" ng-show="settings.container_url">
-                          <label for="warehouselink" class="col-sm-3 control-label ng-binding">URL:</label>
-                          <div class="col-sm-7" style="overflow:none;">
-                            <input type="text" readonly class="form-control" ng-model="settings.container_url" />
-                          </div>
-                        </div>
+                        
                       </digger-form>
                     </form>
 
