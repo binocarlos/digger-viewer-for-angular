@@ -5,6 +5,7 @@ build: templates components
 
 templates:
 	@component convert template.html
+	@component convert jsonviewer.html
 
 
 components: component.json

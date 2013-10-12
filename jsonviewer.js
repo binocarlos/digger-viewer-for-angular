@@ -1,0 +1,1 @@
+module.exports = '<div id="htmlholder" style="width:100%;" ng-bind-html="jsonhtml">\n</div>';

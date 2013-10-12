@@ -1,5 +1,5 @@
 <div>
-  <div class="row" ng-show="deletemode">
+  <div class="row" ng-show="deletemode" style="padding:20px;">
     Are you sure?<br /><br />
 
     <button class="btn btn-info" ng-click="canceldelete()">No Cancel</button>
@@ -8,10 +8,11 @@
 
   <div ng-hide="deletemode">
     <ul class="nav nav-tabs" id="viewerTab">
-      <li ng-show="showchildren" ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
+      
       <li ng-show="showdetails" ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">Details</a></li>
       <li ng-repeat="tab in blueprint.tabs" ng-class="{active:tabmode==tab.name}"><a style="cursor:pointer;" ng-click="setmode(tab.name)">{{ tab.name | ucfirst }}</a></li>
-      
+      <li ng-show="showchildren" ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
+      <li ng-show="settings.showjson" ng-class="{active:tabmode=='json'}"><a style="cursor:pointer;" ng-click="setmode('json')">JSON</a></li>
     </ul>
     <div id="myTabContent" class="tab-content">
 
@@ -39,6 +40,15 @@
         <div>
           <button style="margin:10px;" class="btn btn-sm btn-info" ng-click="add_from_blueprint(blueprint)" ng-repeat="blueprint in addchildren">new {{ blueprint.title() }}</button>
         </div>
+
+      </div>
+
+      <!--
+        JSON
+       -->
+      <div ng-show="settings.showjson" ng-class="{active:tabmode=='json', in:tabmode=='json', fade:tabmode!='json'}" class="tab-pane" id="children" style="margin-top:20px;">
+
+        <digger-json container="container" />
 
       </div>
 
@@ -101,6 +111,7 @@
       </div>
 
     </div>
+    <div ng-if="(tabmode!='children' && tabmode!='json')">
     <hr />
     <div class="form-group text-center" style="margin-top:10px;">
         
@@ -109,4 +120,5 @@
           <button class="btn btn-success" ng-click="savecontainer()">Save</button>
           
       </div>
+    </div>
   </div>

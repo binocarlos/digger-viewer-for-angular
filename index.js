@@ -4,11 +4,56 @@
   
 */
 var template = require('./template');
+var jsontemplate = require('./jsonviewer');
+var jsonMarkup = require('json-markup');
+
 
 angular
   .module('digger.viewer', [
     
   ])
+
+  .directive('diggerJson', function(){
+
+    //field.required && showvalidate && containerForm[field.name].$invalid
+    return {
+      restrict:'EA',
+      scope:{
+        container:'='        
+      },
+      replace:true,
+      template:jsontemplate,
+      controller:function($scope){
+        $scope.$watch('container', function(container){
+          if(!container){
+            return null;
+          }
+
+          var clone = JSON.parse(JSON.stringify(container.get(0)));
+          delete(clone._children);
+          $scope.model = clone;
+        })
+
+        
+        
+
+      },
+
+      link:function($scope, elem, $attrs){
+
+        $scope.$watch('model', function(model){
+          if(!model){
+            return;
+          }
+          
+          var jsonhtml = jsonMarkup(model);
+          elem.html(jsonhtml);
+
+        }, true)
+      }
+
+    }
+  })
 
 
   .directive('diggerViewer', function($safeApply){
@@ -68,6 +113,7 @@ angular
         })
 
         $scope.$watch('container', function(container){
+
           if(!container){
             return;
           }
@@ -103,10 +149,8 @@ angular
             name:'_digger.id',
             title:'#id'
           }]
-
-
-          
         })
+
 
         $scope.add_from_blueprint = function(blueprint){
           $scope.$emit('viewer:add', blueprint);

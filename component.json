@@ -15,7 +15,8 @@
   ],
   "scripts": [
     "index.js",
-    "template.js"
+    "template.js",
+    "jsonviewer.js"
   ],
   "remotes": []
 }
