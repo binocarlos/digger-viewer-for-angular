@@ -28,7 +28,12 @@ angular
       controller:function($scope){
 
       	$scope.tabmode = 'children';
+        $scope.showtab = {};
         $scope.diggeractive = true;
+
+        if($scope.settings.diggeractive!==undefined){
+          $scope.diggeractive = $scope.settings.diggeractive;
+        }
 
         $scope.hidedelete = function(){
           if(!$scope.settings){
@@ -61,7 +66,7 @@ angular
         $scope.$on('viewer:mode', function(ev, mode){
           $scope.setmode(mode);
         })
-        
+
         $scope.$watch('container', function(container){
           if(!container){
             return;
@@ -71,10 +76,13 @@ angular
 
           $scope.deletemode = false;
 
-          var addchildren = $digger.blueprint.get_children($scope.blueprint);
+          var addchildren = $digger.blueprint.get_add_children($scope.blueprint);
           $scope.addchildren = addchildren ? addchildren.containers() : [];
           $scope.showchildren = $digger.blueprint.has_children($scope.blueprint);
           if(container.data('new')){
+            $scope.showchildren = false;
+          }
+          if($scope.settings.showchildren===false){
             $scope.showchildren = false;
           }
           $scope.showdetails = $digger.blueprint ? true : false;
@@ -95,6 +103,9 @@ angular
             name:'_digger.id',
             title:'#id'
           }]
+
+
+          
         })
 
         $scope.add_from_blueprint = function(blueprint){
@@ -109,8 +120,14 @@ angular
         }
 
         $scope.cancelcontainer = function(){
-          $scope.$emit('viewer:canceladd');
-          $scope.addmode = false;
+          if(!$scope.addmode){
+            $scope.$emit('viewer:cancel');
+          }
+          else{
+            $scope.$emit('viewer:canceladd');  
+            $scope.addmode = false;  
+          }
+          
         }
 
         $scope.canceldelete = function(){
