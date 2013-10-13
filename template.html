@@ -92,7 +92,7 @@
             <fieldset>
               
                 <form novalidate>
-                  <digger-form fields="blueprint.fields" container="edit_container" />
+                  <digger-form fieldclass="{{ settings.fieldclass }}" fields="blueprint.fields" container="edit_container" />
                 </form>
 
 
@@ -107,9 +107,7 @@
                   <div ng-show="diggeractive">
                     <hr />
                     <form novalidate>
-                      <digger-form fields="digger_fields" container="edit_container">
-                        
-                      </digger-form>
+                      <digger-form fieldclass="{{ settings.fieldclass }}" fields="digger_fields" container="edit_container" />
                     </form>
 
                     
@@ -135,7 +133,7 @@
 
         <div ng-if="!tab.type">
           <form novalidate>
-            <digger-form fields="tab.fields" container="edit_container" />
+            <digger-form fieldclass="{{ settings.fieldclass }}" fields="tab.fields" container="edit_container" />
           </form>
         </div>
         <div ng-if="tab.type">
