@@ -133,11 +133,11 @@
 
         <div ng-if="!tab.type">
           <form novalidate>
-            <digger-form fieldclass="{{ settings.fieldclass }}" fields="tab.fields" container="edit_container" />
+            <digger-form readonly="readonly" fields="tab.fields" container="edit_container" />
           </form>
         </div>
         <div ng-if="tab.type">
-          <digger-field readonly="readonly" field="tab" container="container" fieldclass="{{ settings.fieldclass }}" />
+          <digger-field readonly="readonly" field="tab" container="edit_container" />
         </div>
         
 
