@@ -113,6 +113,10 @@ angular
           }
         }
 
+        $scope.buttonclass = function(){
+          return $scope.settings.buttonclass || '';
+        }
+
         $scope.toggledigger = function(){
           $scope.diggeractive = !$scope.diggeractive;
         }
