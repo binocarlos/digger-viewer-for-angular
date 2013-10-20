@@ -9,10 +9,11 @@
   <div ng-hide="deletemode">
     <ul class="nav nav-tabs" id="viewerTab">
       
+      <li ng-show="showchildren" ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
       <li ng-show="showdetails" ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">Details</a></li>
       <li ng-repeat="tab in blueprint.tabs" ng-class="{active:tabmode==tab.name}"><a style="cursor:pointer;" ng-click="setmode(tab.name)">{{ tab.name | ucfirst }}</a></li>
-      <li ng-show="showchildren" ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
-      <li ng-show="settings.showjson" ng-class="{active:tabmode=='json'}"><a style="cursor:pointer;" ng-click="setmode('json')">JSON</a></li>
+      
+      <li ng-show="settings.showjson" ng-class="{active:tabmode=='json'}"><a style="cursor:pointer;" ng-click="setmode('json')">Digger</a></li>
     </ul>
     <div id="myTabContent" class="tab-content">
 
@@ -36,8 +37,8 @@
           </div>
 
         </div>
-        <hr style="clear: left;" />
-        <div>
+        <div ng-hide="settings.readonly">
+          <hr style="clear: left;" />
           <button style="margin:10px;" class="btn btn-sm btn-info" ng-click="add_from_blueprint(blueprint)" ng-repeat="blueprint in addchildren">new {{ blueprint.title() }}</button>
         </div>
 
@@ -48,6 +49,10 @@
        -->
       <div ng-show="settings.showjson" ng-class="{active:tabmode=='json', in:tabmode=='json', fade:tabmode!='json'}" class="tab-pane" id="children" style="margin-top:20px;">
 
+        <form novalidate>
+          <digger-form readonly="{{ settings.readonly }}" fieldclass="{{ settings.fieldclass }}" fields="digger_fields" container="edit_container" />
+        </form>
+        <hr />
         <div class="row" ng-show="(issaved && settings.container_url)">
           <form class="form form-horizontal">
           <div class="form-group">
@@ -92,29 +97,8 @@
             <fieldset>
               
                 <form novalidate>
-                  <digger-form fieldclass="{{ settings.fieldclass }}" fields="blueprint.fields" container="edit_container" />
+                  <digger-form readonly="{{ settings.readonly }}" fieldclass="{{ settings.fieldclass }}" fields="blueprint.fields" container="edit_container" />
                 </form>
-
-
-                  <div class="pull-right">
-                    <a href="" ng-click="toggledigger()">
-                    <span ng-show="diggeractive">-</span>
-                    <span ng-hide="diggeractive">+</span>
-                     digger
-                    </a>
-                  </div>
-
-                  <div ng-show="diggeractive">
-                    <hr />
-                    <form novalidate>
-                      <digger-form fieldclass="{{ settings.fieldclass }}" fields="digger_fields" container="edit_container" />
-                    </form>
-
-                    
-                  </div>
-                
-
-      
               
             </fieldset>
 
@@ -133,20 +117,20 @@
 
         <div ng-if="!tab.type">
           <form novalidate>
-            <digger-form readonly="readonly" fields="tab.fields" container="edit_container" />
+            <digger-form readonly="{{ settings.readonly }}" fields="tab.fields" container="edit_container" />
           </form>
         </div>
         <div ng-if="tab.type">
-          <digger-field readonly="readonly" field="tab" container="edit_container" />
+          <digger-field readonly="settings.readonly" field="tab" container="edit_container" />
         </div>
         
 
       </div>
 
     </div>
-    <div ng-if="(tabmode!='children' && tabmode!='json')">
-    <hr />
-    <div class="form-group text-center" style="margin-top:10px;">
+    <div ng-if="!settings.readonly && (tabmode!='children' && tabmode!='json')">
+      <hr />
+      <div class="form-group text-center" style="margin-top:10px;">
         
           <button ng-show="addmode || settings.cancelbutton" class="btn btn-info" ng-class="buttonclass()" ng-click="cancelcontainer()">Cancel</button>
           <button ng-hide="hidedelete()" class="btn btn-warning" ng-class="buttonclass()" ng-click="deletecontainer()">Delete</button>

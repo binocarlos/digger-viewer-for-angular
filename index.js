@@ -165,7 +165,7 @@ angular
           if($scope.settings.showchildren===false){
             $scope.showchildren = false;
           }
-          $scope.showdetails = $digger.blueprint ? true : false;
+          $scope.showdetails = $scope.blueprint ? (($scope.blueprint.fields || []).length>0) : false;
           $scope.edit_container = container;
 
           if(!$scope.showchildren){
