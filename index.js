@@ -130,6 +130,16 @@ angular
           $scope.deletemode = false;
         }
 
+        $scope.haserror = function(){
+          var errorfound = false;
+          Object.keys($scope.container.data('error') || {}).forEach(function(key){
+            if($scope.container.data('error.' + key)){
+              errorfound = true;
+            }
+          })
+          return errorfound;
+        }
+
         $scope.$on('viewer:mode', function(ev, mode){
           $scope.setmode(mode);
         })

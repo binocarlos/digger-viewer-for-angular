@@ -150,7 +150,7 @@
         
           <button ng-show="addmode || settings.cancelbutton" class="btn btn-info" ng-class="buttonclass()" ng-click="cancelcontainer()">Cancel</button>
           <button ng-hide="hidedelete()" class="btn btn-warning" ng-class="buttonclass()" ng-click="deletecontainer()">Delete</button>
-          <button class="btn btn-success" ng-class="buttonclass()" ng-click="savecontainer()">Save</button>
+          <button ng-disabled="haserror()" class="btn btn-success" ng-class="buttonclass()" ng-click="savecontainer()">Save</button>
           
       </div>
     </div>
