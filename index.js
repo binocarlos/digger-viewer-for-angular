@@ -112,6 +112,10 @@ angular
           }
         }
 
+        $scope.settings_button_clicked = function(button){
+          $scope.$emit('viewer:button', button);
+        }
+
         $scope.buttonclass = function(){
           return $scope.settings.buttonclass || '';
         }
@@ -143,6 +147,15 @@ angular
           $scope.setmode(mode);
         })
 
+        $scope.$watch('settings.blueprints', function(blueprints){
+          if(!blueprints){
+            return;
+          }
+          console.log('-------------------------------------------');
+          console.dir(blueprints);
+          $scope.addchildren = blueprints;
+        })
+
         $scope.$watch('container', function(container){
 
           if(!container){
@@ -159,8 +172,11 @@ angular
             container.digger('icon', $scope.iconfn(container));
           }
 
-          var addchildren = $digger.blueprint.get_add_children($scope.blueprint);
-          $scope.addchildren = addchildren ? addchildren.containers() : [];
+          if(!$scope.settings.blueprints){
+            var addchildren = $digger.blueprint.get_add_children($scope.blueprint);
+            $scope.addchildren = addchildren ? addchildren.containers() : [];
+          }
+          
           $scope.showchildren = $digger.blueprint.has_children($scope.blueprint);
           $scope.issaved = true;
           if(container.data('new')){

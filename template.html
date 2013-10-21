@@ -10,10 +10,10 @@
     <ul class="nav nav-tabs" id="viewerTab">
       
       <li ng-show="showchildren" ng-class="{active:tabmode=='children'}"><a style="cursor:pointer;" ng-click="setmode('children')">Children</a></li>
-      <li ng-show="showdetails" ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">Details</a></li>
+      <li ng-show="showdetails" ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">Data</a></li>
       <li ng-repeat="tab in blueprint.tabs" ng-class="{active:tabmode==tab.name}"><a style="cursor:pointer;" ng-click="setmode(tab.name)">{{ tab.name | ucfirst }}</a></li>
       
-      <li ng-show="settings.showjson" ng-class="{active:tabmode=='json'}"><a style="cursor:pointer;" ng-click="setmode('json')">JSON</a></li>
+      <li ng-show="settings.showjson" ng-class="{active:tabmode=='digger'}"><a style="cursor:pointer;" ng-click="setmode('digger')">Digger</a></li>
     </ul>
     <div id="myTabContent" class="tab-content">
 
@@ -39,7 +39,12 @@
         </div>
         <div ng-hide="settings.readonly">
           <hr style="clear: left;" />
+
+          
           <button style="margin:10px;" class="btn btn-sm btn-info" ng-click="add_from_blueprint(blueprint)" ng-repeat="blueprint in addchildren">new {{ blueprint.title() }}</button>
+
+          <button style="margin:10px;" class="btn btn-sm btn-primary" ng-click="settings_button_clicked(button)" ng-repeat="button in settings.buttons">{{ button.title }}</button>
+
         </div>
 
       </div>
@@ -47,13 +52,20 @@
       <!--
         JSON
        -->
-      <div ng-show="settings.showjson" ng-class="{active:tabmode=='json', in:tabmode=='json', fade:tabmode!='json'}" class="tab-pane" id="children" style="margin-top:20px;">
+      <div ng-show="settings.showdigger" ng-class="{active:tabmode=='digger', in:tabmode=='digger', fade:tabmode!='digger'}" class="tab-pane" id="digger" style="margin-top:20px;">
 
 
+
+        <form novalidate>
+          <digger-form readonly="{{ settings.readonly }}" fieldclass="{{ settings.fieldclass }}" fields="digger_fields" container="edit_container" />
+        </form>
+
+        <hr ng-show="(settings.container_url || settings.container_branch)" />
+        
         <div class="row" ng-show="(issaved && settings.container_url)">
           <form class="form form-horizontal">
           <div class="form-group">
-            <label for="warehouselink" class="col-sm-3 control-label ng-binding">REST URL:</label>
+            <label for="warehouselink" class="col-sm-2 control-label ng-binding">REST URL:</label>
             <div class="col-sm-6" style="overflow:none;">
               <input type="text" readonly class="form-control" id="containerurl" ng-model="container_url" />
             </div>
@@ -68,7 +80,7 @@
         <div class="row" ng-show="(issaved && settings.container_branch)">
           <form class="form form-horizontal">
           <div class="form-group">
-            <label for="warehouselink" class="col-sm-3 control-label ng-binding">Branch URL:</label>
+            <label for="warehouselink" class="col-sm-2 control-label ng-binding">Branch URL:</label>
             <div class="col-sm-6" style="overflow:none;">
               <input id="branchurl" type="text" readonly class="form-control" ng-model="container_branch" />
             </div>
@@ -78,6 +90,8 @@
           </div>
           </form>
         </div>
+
+
 
         <hr ng-show="(settings.container_url || settings.container_branch)" />
 
@@ -101,12 +115,7 @@
 
           </form>
 
-          <div ng-show="settings.showdigger">
-            <hr />
-            <form novalidate>
-              <digger-form readonly="{{ settings.readonly }}" fieldclass="{{ settings.fieldclass }}" fields="digger_fields" container="edit_container" />
-            </form>
-          </div>
+
         
 
 
