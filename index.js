@@ -54,21 +54,6 @@ angular
     }
   })
 
-  .factory('$digger_fields', function($safeApply){
-
-    return [{
-      name:'_digger.tag',
-      title:'<tag>'
-    },{
-      name:'_digger.class',
-      type:'diggerclass',
-      title:'.class'
-    },{
-      name:'_digger.id',
-      title:'#id'
-    }]
-
-  })
 
   .directive('diggerViewer', function($safeApply, $digger_fields){
 
