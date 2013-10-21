@@ -170,7 +170,7 @@ angular
           if($scope.settings.showchildren===false){
             $scope.showchildren = false;
           }
-          $scope.showdetails = $scope.blueprint ? (($scope.blueprint.fields || []).length>0) : false;
+          $scope.showdetails = true;//$scope.blueprint ? true:false;//(($scope.blueprint.fields || []).length>0) : false;
           $scope.edit_container = container;
 
           if(!$scope.showchildren){
