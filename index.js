@@ -153,6 +153,12 @@ angular
 
           $scope.deletemode = false;
 
+          var icon = container.digger('icon');
+
+          if(!icon && $scope.iconfn){
+            container.digger('icon', $scope.iconfn(container));
+          }
+
           var addchildren = $digger.blueprint.get_add_children($scope.blueprint);
           $scope.addchildren = addchildren ? addchildren.containers() : [];
           $scope.showchildren = $digger.blueprint.has_children($scope.blueprint);
