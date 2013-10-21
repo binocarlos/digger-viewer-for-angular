@@ -13,7 +13,7 @@
       <li ng-show="showdetails" ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">Details</a></li>
       <li ng-repeat="tab in blueprint.tabs" ng-class="{active:tabmode==tab.name}"><a style="cursor:pointer;" ng-click="setmode(tab.name)">{{ tab.name | ucfirst }}</a></li>
       
-      <li ng-show="settings.showjson" ng-class="{active:tabmode=='json'}"><a style="cursor:pointer;" ng-click="setmode('json')">Digger</a></li>
+      <li ng-show="settings.showjson" ng-class="{active:tabmode=='json'}"><a style="cursor:pointer;" ng-click="setmode('json')">JSON</a></li>
     </ul>
     <div id="myTabContent" class="tab-content">
 
@@ -49,10 +49,7 @@
        -->
       <div ng-show="settings.showjson" ng-class="{active:tabmode=='json', in:tabmode=='json', fade:tabmode!='json'}" class="tab-pane" id="children" style="margin-top:20px;">
 
-        <form novalidate>
-          <digger-form readonly="{{ settings.readonly }}" fieldclass="{{ settings.fieldclass }}" fields="digger_fields" container="edit_container" />
-        </form>
-        <hr />
+
         <div class="row" ng-show="(issaved && settings.container_url)">
           <form class="form form-horizontal">
           <div class="form-group">
@@ -103,6 +100,14 @@
             </fieldset>
 
           </form>
+
+          <div ng-show="settings.showdigger">
+            <hr />
+            <form novalidate>
+              <digger-form readonly="{{ settings.readonly }}" fieldclass="{{ settings.fieldclass }}" fields="digger_fields" container="edit_container" />
+            </form>
+          </div>
+        
 
 
         

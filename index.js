@@ -54,8 +54,23 @@ angular
     }
   })
 
+  .factory('$digger_fields', function($safeApply){
 
-  .directive('diggerViewer', function($safeApply){
+    return [{
+      name:'_digger.tag',
+      title:'<tag>'
+    },{
+      name:'_digger.class',
+      type:'diggerclass',
+      title:'.class'
+    },{
+      name:'_digger.id',
+      title:'#id'
+    }]
+
+  })
+
+  .directive('diggerViewer', function($safeApply, $digger_fields){
 
     //field.required && showvalidate && containerForm[field.name].$invalid
     return {
@@ -70,10 +85,9 @@ angular
       replace:true,
       template:template,
       link:function($scope, elem){
-        
 
         $scope.selectbranchurl = function(){
-          var branchtext = elem.find('#branchurl');  
+          var branchtext = elem.find('#branchurl');
           var branchelem = branchtext.get(0);
 
           branchelem.focus();
@@ -175,17 +189,7 @@ angular
           $scope.container_url = $digger.config.diggerurl + container.diggerurl();
           $scope.container_branch = container.diggerurl();
 
-          $scope.digger_fields = [{
-            name:'_digger.tag',
-            title:'<tag>'
-          },{
-            name:'_digger.class',
-            type:'diggerclass',
-            title:'.class'
-          },{
-            name:'_digger.id',
-            title:'#id'
-          }]
+          $scope.digger_fields = $digger_fields;
         })
 
 
