@@ -151,8 +151,6 @@ angular
           if(!blueprints){
             return;
           }
-          console.log('-------------------------------------------');
-          console.dir(blueprints);
           $scope.addchildren = blueprints;
         })
 
@@ -207,8 +205,8 @@ angular
 
         $scope.deletemode = false;
 
-        $scope.click_container = function(container){
-          $scope.$emit('viewer:selected', container);
+        $scope.click_container = function(container, force){
+          $scope.$emit('viewer:selected', container, force);
         }
 
         $scope.cancelcontainer = function(){

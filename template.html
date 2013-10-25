@@ -25,7 +25,7 @@
 
         <div>
 
-          <div class="digger-viewer-container" ng-repeat="$digger in children" ng-click="click_container($digger)">
+          <div class="digger-viewer-container" ng-class="{selected:$digger.data('selected')}" ng-repeat="$digger in children" ng-click="click_container($digger)" ng-dblclick="click_container($digger, true)">
 
             <div style="margin-bottom:5px;">
               <i class="icon" ng-class="geticon($digger)"></i>
