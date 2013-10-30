@@ -131,6 +131,9 @@ angular
         $scope.setmode = function(mode){
           $scope.tabmode = mode;
           $scope.deletemode = false;
+          if($scope.settings.tabchange){
+            $scope.settings.tabchange(mode);
+          }
         }
 
         $scope.haserror = function(){
