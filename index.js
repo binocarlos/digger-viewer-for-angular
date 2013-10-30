@@ -184,7 +184,9 @@ angular
           if($scope.settings.showchildren===false){
             $scope.showchildren = false;
           }
-          $scope.showdetails = true;//$scope.blueprint ? true:false;//(($scope.blueprint.fields || []).length>0) : false;
+          //$scope.showdetails = true;//$scope.blueprint ? true:false;//(($scope.blueprint.fields || []).length>0) : false;
+          $scope.showdetails = container.tag()!='_supplychain';
+          $scope.issupplychain = container.tag()=='_supplychain';
           $scope.edit_container = container;
 
           if(!$scope.showchildren){
@@ -223,6 +225,10 @@ angular
         $scope.canceldelete = function(){
           $scope.deletemode = false;
         }
+
+        $scope.$on('viewer:delete:press', function(){
+          $scope.deletecontainer();
+        })
 
         $scope.deletecontainer = function(confirm){
           if(!confirm){

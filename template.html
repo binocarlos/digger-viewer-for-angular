@@ -13,7 +13,8 @@
       <li ng-show="showdetails" ng-class="{active:tabmode=='details'}"><a style="cursor:pointer;" ng-click="setmode('details')">Data</a></li>
       <li ng-repeat="tab in blueprint.tabs" ng-class="{active:tabmode==tab.name}"><a style="cursor:pointer;" ng-click="setmode(tab.name)">{{ tab.name | ucfirst }}</a></li>
       
-      <li ng-show="settings.showjson" ng-class="{active:tabmode=='digger'}"><a style="cursor:pointer;" ng-click="setmode('digger')">Digger</a></li>
+      <li ng-show="settings.showdigger && !issupplychain" ng-class="{active:tabmode=='digger'}"><a style="cursor:pointer;" ng-click="setmode('digger')">Digger</a></li>
+      <li ng-show="settings.showjson" ng-class="{active:tabmode=='json'}"><a style="cursor:pointer;" ng-click="setmode('json')">JSON</a></li>
     </ul>
     <div id="myTabContent" class="tab-content">
 
@@ -23,7 +24,7 @@
        -->
       <div ng-show="showchildren" ng-class="{active:tabmode=='children', in:tabmode=='children', fade:tabmode!='children'}" class="tab-pane" id="children" style="margin-top:20px;">
 
-        <div>
+        <div class="col-sm-10">
 
           <div class="digger-viewer-container" ng-class="{selected:$digger.data('selected')}" ng-repeat="$digger in children" ng-click="click_container($digger)" ng-dblclick="click_container($digger, true)">
 
@@ -37,22 +38,22 @@
           </div>
 
         </div>
-        <div ng-hide="settings.readonly">
-          <hr style="clear: left;" />
-
-          
-          <button style="margin:10px;" class="btn btn-sm btn-info" ng-click="add_from_blueprint(blueprint)" ng-repeat="blueprint in addchildren">new {{ blueprint.title() }}</button>
-
-          <button style="margin:10px;" class="btn btn-sm btn-primary" ng-click="settings_button_clicked(button)" ng-repeat="button in settings.buttons">{{ button.title }}</button>
+        <div class="col-sm-2" ng-hide="settings.readonly" style="text-align:right;">
+          <div ng-repeat="blueprint in addchildren" style="margin-bottom:5px;">
+            <button style="width:100%;" class="btn btn-sm btn-info" ng-click="add_from_blueprint(blueprint)">new {{ blueprint.title() }}</button>
+          </div>
+          <div ng-repeat="button in settings.buttons" style="margin-bottom:5px;">
+            <button style="width:100%;" ng-hide="settings.hidebuttonfn(button)" ng-class="'btn btn-sm ' + button.class" ng-click="settings_button_clicked(button)">{{ button.title }}</button>
+          </div>
 
         </div>
 
       </div>
 
       <!--
-        JSON
+        Digger
        -->
-      <div ng-show="settings.showdigger" ng-class="{active:tabmode=='digger', in:tabmode=='digger', fade:tabmode!='digger'}" class="tab-pane" id="digger" style="margin-top:20px;">
+      <div ng-show="settings.showdigger && !issupplychain" ng-class="{active:tabmode=='digger', in:tabmode=='digger', fade:tabmode!='digger'}" class="tab-pane" id="digger" style="margin-top:20px;">
 
 
 
@@ -91,13 +92,17 @@
           </form>
         </div>
 
+      </div>
 
-
-        <hr ng-show="(settings.container_url || settings.container_branch)" />
+      <!--
+        JSON
+       -->
+      <div ng-show="settings.showjson" ng-class="{active:tabmode=='json', in:tabmode=='json', fade:tabmode!='json'}" class="tab-pane" id="json" style="margin-top:20px;">
 
         <digger-json container="container" />
 
       </div>
+
 
       <!--
         details
@@ -142,7 +147,7 @@
       </div>
 
     </div>
-    <div ng-if="!settings.readonly && (tabmode!='children' && tabmode!='json')">
+    <div ng-if="!settings.readonly && (tabmode!='children')">
       <hr />
       <div class="form-group text-center" style="margin-top:10px;">
         
