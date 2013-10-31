@@ -24,7 +24,7 @@
        -->
       <div ng-show="showchildren" ng-class="{active:tabmode=='children', in:tabmode=='children', fade:tabmode!='children'}" class="tab-pane" id="children">
 
-        <div class="row" ng-hide="settings.readonly" style="border-bottom:1px solid #e5e5e5;margin-bottom:10px;">
+        <div class="row" ng-hide="settings.readonly" style="border-bottom:1px dotted #e5e5e5;margin-bottom:10px;">
           <div class="col-sm-12">
 
             <!--
@@ -56,10 +56,13 @@
         <div class="row">
           <div class="col-sm-12">
 
-            <div class="digger-viewer-container" ng-class="{selected:$digger.data('selected')}" ng-repeat="$digger in children" ng-click="click_container($digger)" ng-dblclick="click_container($digger, true)">
+            <!--
+              CHILDREN LOOP
+             -->
+            <div class="digger-viewer-container" ng-class="{selected:$digger.data('selected')}" ng-repeat="$digger in children | viewersort" ng-click="click_container($digger)" ng-dblclick="click_container($digger, true)">
 
               <div style="margin-bottom:5px;">
-                <i class="icon" ng-class="geticon($digger)"></i>
+                <i class="fa icon" ng-class="geticon($digger)"></i>
               </div>
               <div>
                 {{ $digger.title() }}

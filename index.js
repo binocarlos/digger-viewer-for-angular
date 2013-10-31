@@ -125,7 +125,7 @@ angular
         }
 
         $scope.geticon = function(container){
-          return $scope.iconfn ? $scope.iconfn(container) : 'icon-file';
+          return $scope.iconfn ? $scope.iconfn(container) : 'fa-file';
         }
 
         $scope.setmode = function(mode){
@@ -238,6 +238,9 @@ angular
 
         $scope.$on('viewer:set:tab:' + $scope.settings.id, function(ev, tab){
           $scope.tabmode = tab;
+          if($scope.settings.tabchange){
+            $scope.settings.tabchange(tab);
+          }
         })
 
         $scope.deletecontainer = function(confirm){
