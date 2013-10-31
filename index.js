@@ -236,7 +236,7 @@ angular
           $scope.deletecontainer();
         })
 
-        $scope.$on('viewer:set:tab', function(ev, tab){
+        $scope.$on('viewer:set:tab:' + $scope.settings.id, function(ev, tab){
           $scope.tabmode = tab;
         })
 
