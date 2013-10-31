@@ -24,7 +24,7 @@
        -->
       <div ng-show="showchildren" ng-class="{active:tabmode=='children', in:tabmode=='children', fade:tabmode!='children'}" class="tab-pane" id="children">
 
-        <div class="row" ng-hide="settings.readonly">
+        <div class="row" ng-hide="settings.readonly" style="border-bottom:1px solid #e5e5e5;margin-bottom:10px;">
           <div class="col-sm-12">
 
             <!--
@@ -173,6 +173,7 @@
       <div class="form-group text-center" style="margin-top:10px;">
         
           <button ng-show="addmode || settings.cancelbutton" class="btn btn-info" ng-class="buttonclass()" ng-click="cancelcontainer()">Cancel</button>
+          <button ng-show="settings.showup && !addmode" class="btn" ng-click="selectparent()">Up</button>
           <button ng-hide="hidedelete()" class="btn btn-warning" ng-class="buttonclass()" ng-click="deletecontainer()">Delete</button>
           <button ng-disabled="haserror()" class="btn btn-success" ng-class="buttonclass()" ng-click="savecontainer()">Save</button>
           

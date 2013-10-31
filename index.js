@@ -202,6 +202,9 @@ angular
           $scope.digger_fields = $digger_fields;
         })
 
+        $scope.selectparent = function(){
+          $scope.$emit('viewer:up');
+        }
 
         $scope.add_from_blueprint = function(blueprint){
           $scope.$emit('viewer:add', blueprint);
@@ -231,6 +234,10 @@ angular
 
         $scope.$on('viewer:delete:press', function(){
           $scope.deletecontainer();
+        })
+
+        $scope.$on('viewer:set:tab', function(ev, tab){
+          $scope.tabmode = tab;
         })
 
         $scope.deletecontainer = function(confirm){
