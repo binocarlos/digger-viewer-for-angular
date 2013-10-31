@@ -192,7 +192,7 @@ angular
           $scope.issupplychain = container.tag()=='_supplychain';
           $scope.edit_container = container;
 
-          if(!$scope.showchildren){
+          if(!$scope.showchildren || $scope.settings.blueprintmode){
             $scope.tabmode = 'details';
           }
 
