@@ -74,6 +74,32 @@
         </div>
       </div>
 
+
+      <!--
+        details
+       -->
+      <div ng-show="showdetails" ng-class="{active:tabmode=='details', in:tabmode=='details', fade:tabmode!='details'}" class="tab-pane" id="details" style="margin-top:20px;">
+         <form class="form form-horizontal" name="containerForm" onSubmit="return false;" ng-hide="deletemode">
+
+            <fieldset>
+              
+                <form novalidate>
+                  <digger-form showedit="settings.showedit" readonly="{{ settings.readonly }}" fieldclass="{{ settings.fieldclass }}" fields="blueprint.fields" container="edit_container" />
+                </form>
+              
+            </fieldset>
+
+          </form>
+
+
+        
+
+
+        
+
+      </div>
+
+
       <!--
         Digger
        -->
@@ -127,30 +153,6 @@
 
       </div>
 
-
-      <!--
-        details
-       -->
-      <div ng-show="showdetails" ng-class="{active:tabmode=='details', in:tabmode=='details', fade:tabmode!='details'}" class="tab-pane" id="details" style="margin-top:20px;">
-         <form class="form form-horizontal" name="containerForm" onSubmit="return false;" ng-hide="deletemode">
-
-            <fieldset>
-              
-                <form novalidate>
-                  <digger-form readonly="{{ settings.readonly }}" fieldclass="{{ settings.fieldclass }}" fields="blueprint.fields" container="edit_container" />
-                </form>
-              
-            </fieldset>
-
-          </form>
-
-
-        
-
-
-        
-
-      </div>
 
 
       <!--
