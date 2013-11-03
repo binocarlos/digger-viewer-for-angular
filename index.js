@@ -157,11 +157,9 @@ angular
           $scope.addchildren = blueprints;
         })
 
-        $scope.$watch('container', function(container){
+        $scope.render_children = function(){
+          var container = $scope.container;
 
-          if(!container){
-            return;
-          }
 
           $scope.children = container.children().containers();
 
@@ -178,7 +176,14 @@ angular
             $scope.addchildren = addchildren ? addchildren.containers() : [];
           }
           
-          $scope.showchildren = $digger.blueprint.has_children($scope.blueprint);
+          var digger_leaf = container.digger('leaf');
+
+          if(!digger_leaf){
+            var has_children = $digger.blueprint.has_children($scope.blueprint);
+
+            digger_leaf = !has_children;
+          }
+          $scope.showchildren = !digger_leaf;
           $scope.issaved = true;
           if(container.data('new')){
             $scope.showchildren = false;
@@ -200,6 +205,17 @@ angular
           $scope.container_branch = container.diggerurl();
 
           $scope.digger_fields = $digger_fields;
+        }
+
+        $scope.$watch('container', function(container){
+          if(!container){
+            return;
+          }
+          $scope.render_children();
+        })
+
+        $scope.$on('viewer:render', function(){
+          $scope.render_children();
         })
 
         $scope.selectparent = function(){
