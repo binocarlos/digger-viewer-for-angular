@@ -163,6 +163,10 @@ angular
 
           $scope.children = container.children().containers();
 
+          if($scope.settings.filterchildren){
+            $scope.children = $scope.children.filter($scope.settings.filterchildren);
+          }
+
           $scope.deletemode = false;
 
           var icon = container.digger('icon');
