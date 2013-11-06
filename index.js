@@ -185,6 +185,13 @@ angular
           $scope.addchildren = $digger.blueprint.filter_children(blueprints, $scope.blueprint);
         })
 
+        $scope.$watch('container.models[0]._children', function(children){
+          if(!children){
+            return;
+          }
+          $scope.render_children();
+        })
+
         $scope.render_children = function(){
           var container = $scope.container;
 
