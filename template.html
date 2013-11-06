@@ -56,7 +56,15 @@
             -->
 
             <ul class="nav nav-pills">
-
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  view <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="" ng-click="settings.view='icons'">icons</a></li>
+                  <li><a href="" ng-click="settings.view='details'">details</a></li>
+                </ul>
+              </li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                   new <span class="caret"></span>
@@ -83,16 +91,43 @@
             <!--
               CHILDREN LOOP
              -->
-            <div class="digger-viewer-container" ng-class="{selected:$digger.data('selected')}" ng-repeat="$digger in children | viewersort" ng-click="click_container($digger)" ng-dblclick="click_container($digger, true)">
 
-              <div style="margin-bottom:5px;">
-                <i class="fa icon" ng-class="geticon($digger)"></i>
+             <div ng-if="settings.view=='details'">
+               <table class="table table-striped">
+                  <tbody>
+                    <tr class="viewer-details-row" ng-repeat="$digger in children | viewersort" ng-click="click_container($digger)">
+                      <td>
+                        <i class="fa icon digger-details-icon" ng-class="geticon($digger)"></i>
+                      </td>
+                      <td>
+                        {{ $digger.title() }}
+                      </td>
+                      <td>
+                        <small>{{ tag_summary($digger) }}</small>
+                      </td>
+                      <td>
+                        <small>{{ class_summary($digger) }}</small>
+                      </td>
+                      <td>
+                        <small>{{ id_summary($digger) }}</small>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div>
-                {{ $digger.title() }}
+              <div ng-if="settings.view=='icons'">
+                <div class="digger-viewer-container" ng-class="{selected:$digger.data('selected')}" ng-repeat="$digger in children | viewersort" ng-click="click_container($digger)" ng-dblclick="click_container($digger, true)">
+
+                  <div style="margin-bottom:5px;">
+                    <i class="fa icon viewer-icon" ng-class="geticon($digger)"></i>
+                  </div>
+                  <div>
+                    {{ $digger.title() }}
+                  </div>
+
+                </div>
               </div>
 
-            </div>
 
           </div>
         </div>

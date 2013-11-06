@@ -86,6 +86,10 @@ angular
           branchelem.focus();
           branchelem.select();
         }
+
+        if(!$scope.settings.view){
+          $scope.settings.view = 'details';
+        }
       },
       controller:function($scope){
 
@@ -97,6 +101,28 @@ angular
           $scope.diggeractive = $scope.settings.diggeractive;
         }
 
+        $scope.class_summary = function(container){
+          if(!container){
+            return '';
+          }
+          var classes = container.digger('class') || [];
+
+          return classes.map(function(classname){
+            return '.' + classname;
+          }).join(' ');
+        }
+        $scope.tag_summary = function(container){
+          if(!container || !container.tag()){
+            return '';
+          }
+          return '<' + container.tag() + '>';
+        }
+        $scope.id_summary = function(container){
+          if(!container || !container.id()){
+            return '';
+          }
+          return '#' + container.id();
+        }
         $scope.hidedelete = function(){
           if(!$scope.settings){
             return false;
@@ -150,16 +176,17 @@ angular
           $scope.setmode(mode);
         })
 
+        
+
         $scope.$watch('settings.blueprints', function(blueprints){
           if(!blueprints){
             return;
           }
-          $scope.addchildren = blueprints;
+          $scope.addchildren = $digger.blueprint.filter_children(blueprints, $scope.blueprint);
         })
 
         $scope.render_children = function(){
           var container = $scope.container;
-
 
           $scope.children = container.children().containers();
 
@@ -175,10 +202,10 @@ angular
             container.digger('icon', $scope.iconfn(container));
           }
 
-          if(!$scope.settings.blueprints){
-            var addchildren = $digger.blueprint.get_add_children($scope.blueprint);
-            $scope.addchildren = addchildren ? addchildren.containers() : [];
-          }
+          //if(!$scope.settings.blueprints){
+            var addchildren = $digger.blueprint.all_containers(true);
+            $scope.addchildren = $digger.blueprint.filter_children(addchildren, $scope.blueprint);
+          //}
           
           var digger_leaf = container.digger('leaf');
 
