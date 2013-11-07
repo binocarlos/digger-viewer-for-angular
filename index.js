@@ -198,6 +198,10 @@ angular
         $scope.render_children = function(){
           var container = $scope.container;
 
+          if(!container){
+            return;
+          }
+
           $scope.children = container.children().containers();
 
           if($scope.settings.filterchildren){
