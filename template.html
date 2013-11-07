@@ -233,5 +233,9 @@
 
     </div>
 
+    <div ng-cloak ng-if="tabmode!='children'" class="text-center">
+      <a class="btn btn-warning" ng-hide="hidedelete()" href="" ng-click="deletecontainer()">delete</a>
+      <a class="btn btn-success" ng-hide="edit_container.tag()=='_supplychain' || haserror()" href="" ng-click="savecontainer()">save</a>
+    </div>
   </div>
 </div>

@@ -163,6 +163,9 @@ angular
         }
 
         $scope.haserror = function(){
+          if(!$scope.container){
+            return false;
+          }
           var errorfound = false;
           Object.keys($scope.container.data('error') || {}).forEach(function(key){
             if($scope.container.data('error.' + key)){
