@@ -7,6 +7,7 @@ var template = require('./template');
 var jsontemplate = require('./jsonviewer');
 var jsonMarkup = require('json-markup');
 
+module.exports = 'digger.viewer';
 
 angular
   .module('digger.viewer', [
