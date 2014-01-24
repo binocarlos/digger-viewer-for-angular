@@ -11,7 +11,7 @@ module.exports = 'digger.viewer';
 
 angular
   .module('digger.viewer', [
-    
+    require('digger-form-for-angular')
   ])
 
   .directive('diggerJson', function(){

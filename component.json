@@ -5,7 +5,8 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "mafintosh/json-markup": "*"
+    "mafintosh/json-markup": "*",
+    "diggerio/digger-form-for-angular":"*"
   },
   "development": {},
   "license": "MIT",
