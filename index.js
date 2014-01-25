@@ -209,6 +209,10 @@ angular
             $scope.children = $scope.children.filter($scope.settings.filterchildren);
           }
 
+          if($scope.settings.mapchildren){
+            $scope.children = $scope.children.map($scope.settings.mapchildren);
+          }
+
           $scope.deletemode = false;
 
           var icon = container.digger('icon');
