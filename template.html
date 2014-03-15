@@ -22,7 +22,7 @@
      -->
     <div class="row" style="border-bottom:1px dotted #e5e5e5;margin-bottom:10px;" ng-if="!settings.readonly && (tabmode!='children')">
       <ul class="nav nav-pills">
-        <li ng-show="edit_container.tag()!='_supplychain' && settings.showup && !addmode">
+        <li ng-show="edit_container.models[0]._digger.tag!='_supplychain' && settings.showup && !addmode">
           <a href="" ng-click="selectparent()">up</a>
         </li>
         <li ng-show="addmode || settings.cancelbutton">
@@ -31,7 +31,7 @@
         <li ng-hide="hidedelete()">
           <a href="" ng-click="deletecontainer()">delete</a>
         </li>
-        <li ng-hide="edit_container.tag()=='_supplychain' || haserror()">
+        <li ng-hide="edit_container.models[0]._digger.tag=='_supplychain' || haserror()">
           <a href="" ng-click="savecontainer()">save</a>
         </li>
       </ul>
@@ -71,13 +71,13 @@
                   new <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                  <li ng-repeat="blueprint in addchildren"><a href="" ng-click="add_from_blueprint(blueprint)">{{ blueprint.title() }}</a></li>
+                  <li ng-repeat="blueprint in addchildren"><a href="" ng-click="add_from_blueprint(blueprint)">{{ blueprint.models[0].name }}</a></li>
                 </ul>
               </li>
               <li ng-repeat="button in settings.buttons" ng-hide="settings.hidebuttonfn(button)" >
                 <a href="" ng-click="settings_button_clicked(button)">{{ button.title }}</a>
               </li>
-              <li ng-show="edit_container.tag()!='_supplychain' && settings.showup && !addmode">
+              <li ng-show="edit_container.models[0]._digger.tag!='_supplychain' && settings.showup && !addmode">
                 <a href="" ng-click="selectparent()">up</a>
               </li>
               <div ng-if="settings.showselector" class="pull-right col-sm-5">
@@ -241,7 +241,7 @@
 
     <div ng-cloak ng-if="tabmode!='children' && !settings.readonly" class="text-center">
       <a class="btn btn-warning" ng-hide="hidedelete()" href="" ng-click="deletecontainer()">delete</a>
-      <a class="btn btn-success" ng-hide="edit_container.tag()=='_supplychain' || haserror()" href="" ng-click="savecontainer()">save</a>
+      <a class="btn btn-success" ng-hide="edit_container.models[0]._digger.tag=='_supplychain' || haserror()" href="" ng-click="savecontainer()">save</a>
     </div>
   </div>
 </div>
