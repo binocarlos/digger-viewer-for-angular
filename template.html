@@ -207,8 +207,11 @@
         </div>
 
         <div class="row" ng-show="settings.showjson">
-          <hr />
-          <div>
+          <button ng-click="jsonactive=!jsonactive" class="btn btn-xs btn-info pull-right" style="margin-right:10px;">
+            <span ng-if="jsonactive">Hide JSON</span>
+            <span ng-if="!jsonactive">Show JSON</span>
+          </button>
+          <div ng-show="jsonactive">
             <digger-json container="container" />
           </div>
         </div>
